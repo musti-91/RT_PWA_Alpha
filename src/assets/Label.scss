@@ -1,3 +1,9 @@
 .label {
-  background-color: red;
+  margin: 20px auto;
+  width: 100%;
+  text-align: center;
+  span {
+    font-size: 20px;
+    text-transform: capitalize;
+  }
 }

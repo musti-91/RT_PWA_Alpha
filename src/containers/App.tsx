@@ -40,18 +40,34 @@ class App extends Component<IProps, IState> {
 		}
 	};
 
+	onDeleteClicked = (id: number) => {
+		const { todos } = this.state;
+		const array = todos.splice(id, 1);
+
+		this.setState(() => ({
+			todos: [...todos.filter((todo, index) => id !== index)]
+		}));
+	};
+
 	render() {
 		const { appName, author } = this.props;
 		const { value, todos } = this.state;
 		return (
 			<Container className="app_theme">
-				<Header title={appName} onClick={this.onClick} />
+				<Header title={appName} onClick={this.onClick} icon="react" />
 				<InputField
 					onSubmit={this.onSubmit}
 					onChange={this.onChange}
 					value={value}
 				/>
-				{todos.length !== 0 && <Todos items={todos} />}
+				{todos.length !== 0 && (
+					<Todos
+						items={todos}
+						icon="remove"
+						iconColor="red"
+						onTodoDeleteClicked={this.onDeleteClicked}
+					/>
+				)}
 			</Container>
 		);
 	}
