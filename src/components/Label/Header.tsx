@@ -11,7 +11,7 @@ const Header: SFC<IProps> = ({ title, onClick, icon }) => {
 	return (
 		<Container className="header">
 			<h2 onClick={onClick}>
-				{icon && <Icon loading inverted name={icon} color="black"/>}
+				{icon && <Icon inverted name={icon} color="black"/>}
 				{title}
 			</h2>
 		</Container>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Label, Icon } from 'semantic-ui-react';
+import { Spring } from 'react-spring';
 
-import Header from '../components/Header';
-import Todos from '../components/Todos';
-import InputField from '../components/InputField';
+import Header from '../components/Label/Header';
+import Todos from '../components/list/Todos';
+import InputField from '../components/forms/InputField';
 
 interface IProps {
 	appName: string;
@@ -13,13 +14,26 @@ interface IProps {
 interface IState {
 	value: string;
 	todos: string[];
+	offline: boolean;
 }
 
 class App extends Component<IProps, IState> {
 	state: IState = {
 		value: '',
-		todos: []
+		todos: ['Read book', 'Play Basketball'],
+		offline: !navigator.onLine
 	};
+
+	componentDidUpdate() {
+		window.addEventListener('online', this.onOfflineMode);
+		window.addEventListener('offline', this.onOfflineMode);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('online', this.onOfflineMode);
+		window.removeEventListener('offline', this.onOfflineMode);
+	}
+
 	onClick = (e: any) => {
 		window.location.reload();
 	};
@@ -40,6 +54,8 @@ class App extends Component<IProps, IState> {
 		}
 	};
 
+	onOfflineMode = () => this.setState(() => ({ offline: !navigator.onLine }));
+
 	onDeleteClicked = (id: number) => {
 		const { todos } = this.state;
 		const array = todos.splice(id, 1);
@@ -51,9 +67,10 @@ class App extends Component<IProps, IState> {
 
 	render() {
 		const { appName, author } = this.props;
-		const { value, todos } = this.state;
+		const { offline, value, todos } = this.state;
 		return (
 			<Container className="app_theme">
+				{offline && this.renderOfflineBadge()}
 				<Header title={appName} onClick={this.onClick} icon="react" />
 				<InputField
 					onSubmit={this.onSubmit}
@@ -71,5 +88,17 @@ class App extends Component<IProps, IState> {
 			</Container>
 		);
 	}
+
+	renderOfflineBadge = () => {
+		return (
+			<Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
+				{props => (
+					<span style={props}>
+						<Label color="red">offline</Label>
+					</span>
+				)}
+			</Spring>
+		);
+	};
 }
 export default App;

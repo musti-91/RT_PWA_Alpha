@@ -1,8 +1,8 @@
 import React, { SFC } from 'react';
 import { FormProps } from 'semantic-ui-react';
 
-import Label from './Label';
-import DefaultButton from './Button/Button';
+import Label from '../Label/Label';
+import DefaultButton from '../Button/Button';
 interface IForm extends FormProps {
 	onSubmit: (e: any) => void;
 	onChange: (e: any) => void;
@@ -12,7 +12,7 @@ interface IForm extends FormProps {
 const InputField: SFC<IForm> = ({ onSubmit, onChange, value }) => {
 	return (
 		<>
-			<Label title="sample Todo App with typescript" />
+			<Label title="sample Todo App with typescript & PWA" />
 			<form onSubmit={onSubmit} className="form">
 				<input onChange={onChange} value={value} />
 				<DefaultButton

@@ -1,8 +1,8 @@
-@import "./App.scss";
-@import "./Header.scss";
-@import "./InputField.scss";
-@import "./List.scss";
-@import "./Label.scss";
+@import "./containers/App.scss";
+@import "./components/Header.scss";
+@import "./components/InputField.scss";
+@import "./components/List.scss";
+@import "./components/Label.scss";
 body {
   margin: 0;
   padding: 0;
