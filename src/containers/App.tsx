@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Label, Icon } from 'semantic-ui-react';
+import { data } from '../utils/data';
 import { Spring } from 'react-spring';
 
 import Header from '../components/label/Header';
@@ -37,27 +38,6 @@ class App extends Component<IProps, IState> {
 		window.removeEventListener('online', this.onOfflineMode);
 		window.removeEventListener('offline', this.onOfflineMode);
 	}
-
-	fetchPosts = async () => {
-		/**
-		 * { "userId": 1,
-          "id": 2,
-          "title": "qui est esse",
-          "body":""
-		 */
-		const res = await fetch('http://localhost:3000/posts');
-		const results = await res.json();
-		return results;
-	};
-
-	addPostToState = (posts: object[]) =>
-		this.setState(() => ({ posts: [...posts] }));
-
-	onHeaderTitleClicked = (e: any) => {
-		window.location.reload();
-	};
-
-	onOfflineMode = () => this.setState(() => ({ offline: !navigator.onLine }));
 
 	render() {
 		const { appName } = this.props;
@@ -116,16 +96,13 @@ class App extends Component<IProps, IState> {
 			return;
 		}
 		const post = {
-			id: Math.floor(Math.random() * 30) + 4,
 			title,
-			author: 'someone',
+			author: 'user_name',
 			body: description,
 			read_it: false
 		};
-
-		this.setState(() => ({
-			posts: [...posts, post]
-		}));
+		this.setState({ posts: [...posts, post] });
+		data.post(post).then(postId => console.log('new PostId=' + postId.id));
 	};
 
 	onChange = (eve: any) => {
@@ -137,9 +114,19 @@ class App extends Component<IProps, IState> {
 
 	onPostDelete = (id: number | string) => {
 		const { posts } = this.state;
-		this.setState({
-			posts: [...posts.filter((post:any) => id !== post.id)]
-		});
+		this.setState(() => ({
+			posts: [...posts.filter((item: any) => item.id !== id)]
+		}));
+		data.delete(id);
 	};
+
+	fetchPosts = async () => await data.get();
+
+	addPostToState = (posts: object[]) =>
+		this.setState(() => ({ posts: [...posts] }));
+
+	onHeaderTitleClicked = (e: any) => window.location.reload();
+
+	onOfflineMode = () => this.setState(() => ({ offline: !navigator.onLine }));
 }
 export default App;

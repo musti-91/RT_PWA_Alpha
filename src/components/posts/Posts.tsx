@@ -28,7 +28,8 @@ class Posts extends Component<IProps> {
 					<li className="list" style={animationStyle}>
 						<div>
 							<h3>{post.title}</h3>
-							<span>{post.body}</span>
+							<h4>{post.body}</h4>
+							<span>{post.author}</span>
 						</div>
 						<div>
 							{icon && (
@@ -47,12 +48,12 @@ class Posts extends Component<IProps> {
 
 const fromOpt = {
 	opacity: 0,
-	color: 'black',
-	transform: 'scale(0.50)'
+	transform: `scale(0.90) translateX(90%)`,
+	transition: `transform 300ms`
 };
 const toOpt = {
 	opacity: 1,
-	color: 'black',
-	transform: 'scale(1.2)'
+	transform: 'scale(1.2) translateX(0)',
+	transition: `transform 300ms`
 };
 export default Posts;

@@ -1,30 +1,46 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "title_1",
-      "author": "Someone",
-      "body":"description_1",
-      "read_it":true
+      "title": "something new",
+      "author": "user_name",
+      "body": "description",
+      "read_it": false,
+      "id": 4
     },
     {
-      "id": 2,
-      "title": "title_2",
-      "author": "Some_author",
-      "body":"description_2",
-      "read_it":false
-    } ,{
-      "id": 3,
-      "title": "title_3",
-      "author": "Author_name",
-      "body":"description_3",
-      "read_it":true
-    } ,{
-      "id": 4,
-      "title": "title_4",
-      "author": "Author_name",
-      "body":"description_4",
-      "read_it":false
+      "title": "Somethig",
+      "author": "user_name",
+      "body": "ano",
+      "read_it": false,
+      "id": 5
+    },
+    {
+      "title": "Somethig",
+      "author": "user_name",
+      "body": "read",
+      "read_it": false,
+      "id": 6
+    },
+    {
+      "title": "some",
+      "author": "user_name",
+      "body": "re",
+      "read_it": false,
+      "id": 7
+    },
+    {
+      "title": "new Title",
+      "author": "user_name",
+      "body": "new description",
+      "read_it": false,
+      "id": 8
+    },
+    {
+      "title": "Somethig",
+      "author": "user_name",
+      "body": "read",
+      "read_it": false,
+      "id": 9
     }
   ]
 }
