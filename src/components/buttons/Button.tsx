@@ -17,8 +17,10 @@ const DefaultButton: SFC<IProps> = ({
 	loading
 }) => {
 	return (
-		<Button onClick={onClick}>
-			{icon && <Icon name={icon} color={color} loading={loading} />}
+		<Button onClick={onClick} color="teal" className="button">
+			{icon && (
+				<Icon name={icon} color={color} loading={loading} />
+			)}
 			{content}
 		</Button>
 	);

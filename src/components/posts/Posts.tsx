@@ -6,6 +6,7 @@ interface IProps {
 	posts: object[] | any;
 	onPostDelete: (id?: any) => void;
 	onPostEdit: (id?: number | any, post?: object) => void;
+	onPostClicked: (id: number | string) => void;
 }
 /**
  * post : {
@@ -19,35 +20,46 @@ interface IProps {
 
 class Posts extends Component<IProps> {
 	render() {
-		const { posts, onPostDelete, onPostEdit } = this.props;
+		const { posts, onPostDelete, onPostEdit, onPostClicked } = this.props;
 
 		return posts.map((post: object | any, id: number) => (
 			<Spring from={fromOpt} to={toOpt} key={id}>
 				{animationStyle => (
-					<li className="list" style={animationStyle}>
+					<li
+						className="list"
+						style={animationStyle}
+						onClick={() => onPostClicked(post.id)}
+					>
 						<div>
 							<h3>{post.title}</h3>
 							<h4>{post.description}</h4>
-							<span>{post.author}</span>
-						</div>
-						<div>
 							<span>
-								<Icon name="archive" size="small" />
+								<Icon name="sun" color="yellow" />
+								{post.author}
+							</span>
+						</div>
+						<div className="list_icons">
+							<span>
+								<Icon
+									name={post.read_it ? 'heart' : 'heart outline'}
+									size="small"
+									inverted
+								/>
 							</span>
 							<span>
 								<Icon
 									name={post.read_it ? 'eye' : 'eye slash outline'}
-									size="small"
+									size="small" inverted
 								/>
 							</span>
 							<span onClick={() => onPostDelete(post.id)}>
 								<Icon name="trash" color="red" size="small" />
 							</span>
 							<span onClick={() => onPostEdit(post.id, post)}>
-								<Icon name="edit" size="small" />
+								<Icon name="edit" size="small" inverted />
 							</span>
 							<span>
-								<Icon name="send" size="small" />
+								<Icon name="send" size="small" inverted />
 							</span>
 						</div>
 					</li>

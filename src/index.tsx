@@ -8,7 +8,7 @@ import App from './containers/App';
 
 import * as serviceWorker from './serviceworker/serviceWorker';
 
-const appName = 'RTS_PWA_Alpha';
+const appName = 'Weather App';
 ReactDOM.render(<App appName={appName} />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

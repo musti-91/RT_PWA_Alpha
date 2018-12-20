@@ -26,14 +26,10 @@ const InputField: SFC<IForm> = ({
 					value={value}
 					placeholder={name}
 					name={name}
+					autoComplete="off"
 				/>
 				{hasButton && (
-					<DefaultButton
-						onClick={onSubmit}
-						content="Add"
-						icon="add"
-						color="black"
-					/>
+					<DefaultButton onClick={onSubmit} content="Add" icon="add"/>
 				)}
 			</form>
 		</>

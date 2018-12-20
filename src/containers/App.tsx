@@ -52,7 +52,6 @@ class App extends Component<IProps, IState> {
 				<Header
 					title={appName}
 					onClick={this.onHeaderTitleClicked}
-					icon="react"
 				/>
 				<InputField
 					onSubmit={this.onSubmit}
@@ -78,6 +77,7 @@ class App extends Component<IProps, IState> {
 			posts={posts}
 			onPostDelete={this.onPostDelete}
 			onPostEdit={this.onPostEdit}
+			onPostClicked={this.onPostClicked}
 		/>
 	);
 
@@ -109,17 +109,15 @@ class App extends Component<IProps, IState> {
 		};
 
 		if (!edit) {
-			data
-				.post(post)
-				.then(postId =>
-					this.setState({
-						posts: [...posts, { id: postId.id, ...post }],
-						title: '',
-						description: '',
-						postId: '',
-						edit: false
-					})
-				);
+			data.post(post).then(postId =>
+				this.setState({
+					posts: [...posts, { id: postId.id, ...post }],
+					title: '',
+					description: '',
+					postId: '',
+					edit: false
+				})
+			);
 		} else {
 			data.put(postId, post).then(updatedPost =>
 				this.setState({
@@ -160,6 +158,9 @@ class App extends Component<IProps, IState> {
 		});
 	};
 
+	onPostClicked = (id: number | string) => {
+		///route to the page
+	};
 	fetchPosts = async () => await data.get();
 
 	addPostToState = (posts: object[]) =>
