@@ -4,9 +4,8 @@ import { Icon } from 'semantic-ui-react';
 
 interface IProps {
 	posts: object[] | any;
-	icon?: any;
-	iconColor?: any;
 	onPostDelete: (id?: any) => void;
+	onPostEdit: (id?: number | any, post?: object) => void;
 }
 /**
  * post : {
@@ -20,7 +19,7 @@ interface IProps {
 
 class Posts extends Component<IProps> {
 	render() {
-		const { posts, icon, iconColor, onPostDelete } = this.props;
+		const { posts, onPostDelete, onPostEdit } = this.props;
 
 		return posts.map((post: object | any, id: number) => (
 			<Spring from={fromOpt} to={toOpt} key={id}>
@@ -28,16 +27,28 @@ class Posts extends Component<IProps> {
 					<li className="list" style={animationStyle}>
 						<div>
 							<h3>{post.title}</h3>
-							<h4>{post.body}</h4>
+							<h4>{post.description}</h4>
 							<span>{post.author}</span>
 						</div>
 						<div>
-							{icon && (
-								<span onClick={() => onPostDelete(post.id)}>
-									{icon && <Icon name={icon} color={iconColor} />}
-									{post.id}
-								</span>
-							)}
+							<span>
+								<Icon name="archive" size="small" />
+							</span>
+							<span>
+								<Icon
+									name={post.read_it ? 'eye' : 'eye slash outline'}
+									size="small"
+								/>
+							</span>
+							<span onClick={() => onPostDelete(post.id)}>
+								<Icon name="trash" color="red" size="small" />
+							</span>
+							<span onClick={() => onPostEdit(post.id, post)}>
+								<Icon name="edit" size="small" />
+							</span>
+							<span>
+								<Icon name="send" size="small" />
+							</span>
 						</div>
 					</li>
 				)}

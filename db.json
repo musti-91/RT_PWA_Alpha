@@ -1,46 +1,32 @@
 {
   "posts": [
     {
-      "title": "something new",
+      "title": "new release",
       "author": "user_name",
-      "body": "description",
-      "read_it": false,
+      "description": "another",
+      "read_it": true,
       "id": 4
     },
     {
-      "title": "Somethig",
+      "title": "updated M",
       "author": "user_name",
-      "body": "ano",
+      "description": "updated",
       "read_it": false,
       "id": 5
     },
     {
-      "title": "Somethig",
+      "title": "new Post",
       "author": "user_name",
-      "body": "read",
+      "description": "snoffer",
       "read_it": false,
       "id": 6
     },
     {
-      "title": "some",
+      "title": "smover",
       "author": "user_name",
-      "body": "re",
-      "read_it": false,
+      "description": "pokemon go",
+      "read_it": true,
       "id": 7
-    },
-    {
-      "title": "new Title",
-      "author": "user_name",
-      "body": "new description",
-      "read_it": false,
-      "id": 8
-    },
-    {
-      "title": "Somethig",
-      "author": "user_name",
-      "body": "read",
-      "read_it": false,
-      "id": 9
     }
   ]
 }
