@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2015",
     "allowJs": true,
     "skipLibCheck": false,
     "esModuleInterop": true,
@@ -14,7 +14,16 @@
     "noEmit": true,
     "jsx": "preserve"
   },
+  "rules":{
+    "member-access":false,
+  },
   "include": [
     "src"
-  ]
+  ],
+  "lib": [
+    "dom",
+    "es5",
+    "scripthost",
+    "es2015.promise"
+],
 }

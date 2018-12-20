@@ -2,31 +2,35 @@ import React, { Component } from 'react';
 import { Container, Label, Icon } from 'semantic-ui-react';
 import { Spring } from 'react-spring';
 
-import Header from '../components/Label/Header';
-import Todos from '../components/list/Todos';
+import Header from '../components/label/Header';
+import Posts from '../components/posts/Posts';
 import InputField from '../components/forms/InputField';
 
 interface IProps {
-	appName: string;
-	author?: string;
+	appName: any;
+	author?: any;
 }
 
 interface IState {
-	value: string;
-	todos: string[];
+	title: string;
+	[x: string]: any;
+	description: string | any;
 	offline: boolean;
+	posts: object[];
 }
 
 class App extends Component<IProps, IState> {
 	state: IState = {
-		value: '',
-		todos: ['Read book', 'Play Basketball'],
+		posts: [],
+		title: '',
+		description: '',
 		offline: !navigator.onLine
 	};
 
-	componentDidUpdate() {
+	componentDidMount() {
 		window.addEventListener('online', this.onOfflineMode);
 		window.addEventListener('offline', this.onOfflineMode);
+		this.fetchPosts().then(res => this.addPostToState(res));
 	}
 
 	componentWillUnmount() {
@@ -34,60 +38,63 @@ class App extends Component<IProps, IState> {
 		window.removeEventListener('offline', this.onOfflineMode);
 	}
 
-	onClick = (e: any) => {
+	fetchPosts = async () => {
+		/**
+		 * { "userId": 1,
+          "id": 2,
+          "title": "qui est esse",
+          "body":""
+		 */
+		const res = await fetch('http://localhost:3000/posts');
+		const results = await res.json();
+		return results;
+	};
+
+	addPostToState = (posts: object[]) =>
+		this.setState(() => ({ posts: [...posts] }));
+
+	onHeaderTitleClicked = (e: any) => {
 		window.location.reload();
-	};
-
-	onChange = (e: any) => {
-		const { value } = e.target;
-		this.setState({ value: value });
-	};
-
-	onSubmit = (e: any) => {
-		e.preventDefault();
-		const { value, todos } = this.state;
-		if (value.trim() !== '') {
-			this.setState({
-				todos: [...todos, value],
-				value: ''
-			});
-		}
 	};
 
 	onOfflineMode = () => this.setState(() => ({ offline: !navigator.onLine }));
 
-	onDeleteClicked = (id: number) => {
-		const { todos } = this.state;
-		const array = todos.splice(id, 1);
-
-		this.setState(() => ({
-			todos: [...todos.filter((todo, index) => id !== index)]
-		}));
-	};
-
 	render() {
-		const { appName, author } = this.props;
-		const { offline, value, todos } = this.state;
+		const { appName } = this.props;
+		const { offline, posts } = this.state;
 		return (
 			<Container className="app_theme">
 				{offline && this.renderOfflineBadge()}
-				<Header title={appName} onClick={this.onClick} icon="react" />
+				<Header
+					title={appName}
+					onClick={this.onHeaderTitleClicked}
+					icon="react"
+				/>
 				<InputField
 					onSubmit={this.onSubmit}
 					onChange={this.onChange}
-					value={value}
+					hasButton
+					name="title"
 				/>
-				{todos.length !== 0 && (
-					<Todos
-						items={todos}
-						icon="remove"
-						iconColor="red"
-						onTodoDeleteClicked={this.onDeleteClicked}
-					/>
-				)}
+				<InputField
+					onChange={this.onChange}
+					onSubmit={this.onSubmit}
+					hasButton={false}
+					name="description"
+				/>
+				{posts.length !== 0 && this.renderPosts(posts)}
 			</Container>
 		);
 	}
+
+	renderPosts = (posts: object[]) => (
+		<Posts
+			posts={posts}
+			icon="remove"
+			iconColor="red"
+			onPostDelete={this.onPostDelete}
+		/>
+	);
 
 	renderOfflineBadge = () => {
 		return (
@@ -99,6 +106,40 @@ class App extends Component<IProps, IState> {
 				)}
 			</Spring>
 		);
+	};
+
+	onSubmit = (eve: object | any) => {
+		eve.preventDefault();
+		const { title, description, posts } = this.state;
+		if (title.trim() === '') {
+			// warning
+			return;
+		}
+		const post = {
+			id: Math.floor(Math.random() * 30) + 4,
+			title,
+			author: 'someone',
+			body: description,
+			read_it: false
+		};
+
+		this.setState(() => ({
+			posts: [...posts, post]
+		}));
+	};
+
+	onChange = (eve: any) => {
+		const { name, value } = eve.target;
+		this.setState({
+			[name]: value
+		});
+	};
+
+	onPostDelete = (id: number | string) => {
+		const { posts } = this.state;
+		this.setState({
+			posts: [...posts.filter((post:any) => id !== post.id)]
+		});
 	};
 }
 export default App;

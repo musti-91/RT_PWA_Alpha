@@ -1,0 +1,30 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "title_1",
+      "author": "Someone",
+      "body":"description_1",
+      "read_it":true
+    },
+    {
+      "id": 2,
+      "title": "title_2",
+      "author": "Some_author",
+      "body":"description_2",
+      "read_it":false
+    } ,{
+      "id": 3,
+      "title": "title_3",
+      "author": "Author_name",
+      "body":"description_3",
+      "read_it":true
+    } ,{
+      "id": 4,
+      "title": "title_4",
+      "author": "Author_name",
+      "body":"description_4",
+      "read_it":false
+    }
+  ]
+}

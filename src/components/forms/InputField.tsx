@@ -1,26 +1,40 @@
 import React, { SFC } from 'react';
 import { FormProps } from 'semantic-ui-react';
 
-import Label from '../Label/Label';
-import DefaultButton from '../Button/Button';
+import DefaultButton from '../buttons/Button';
 interface IForm extends FormProps {
-	onSubmit: (e: any) => void;
-	onChange: (e: any) => void;
+	onSubmit?: (e: any) => void;
+	onChange: (e: object | any) => void;
+	name?: string;
 	value?: string;
+	hasButton?: boolean;
 }
 
-const InputField: SFC<IForm> = ({ onSubmit, onChange, value }) => {
+const InputField: SFC<IForm> = ({
+	name,
+	onSubmit,
+	onChange,
+	value,
+	hasButton,
+	placeholder
+}) => {
 	return (
 		<>
-			<Label title="sample Todo App with typescript & PWA" />
 			<form onSubmit={onSubmit} className="form">
-				<input onChange={onChange} value={value} />
-				<DefaultButton
-					onClick={onSubmit}
-					content="Add"
-					icon="add"
-					color="black"
+				<input
+					onChange={onChange}
+					value={value}
+					placeholder={name}
+					name={name}
 				/>
+				{hasButton && (
+					<DefaultButton
+						onClick={onSubmit}
+						content="Add"
+						icon="add"
+						color="black"
+					/>
+				)}
 			</form>
 		</>
 	);
