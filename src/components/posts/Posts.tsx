@@ -71,12 +71,12 @@ class Posts extends Component<IProps> {
 
 const fromOpt = {
 	opacity: 0,
-	transform: `scale(0.90) translateX(90%)`,
+	transform: `translateY(-180%)`,
 	transition: `transform 300ms`
 };
 const toOpt = {
 	opacity: 1,
-	transform: 'scale(1.2) translateX(0)',
+	transform: 'translateY(0)',
 	transition: `transform 300ms`
 };
 export default Posts;

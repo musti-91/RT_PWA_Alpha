@@ -1,4 +1,4 @@
-export let data = {
+export let api = {
 	get: () =>
 		fetch('http://localhost:2000/posts/')
 			.then(res => res.json())

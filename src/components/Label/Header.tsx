@@ -2,7 +2,7 @@ import React, { SFC } from 'react';
 import { Container, Icon } from 'semantic-ui-react';
 
 interface IProps {
-	title: string;
+	title?: string;
 	icon?: any;
 	onClick?: (e: any) => void;
 }

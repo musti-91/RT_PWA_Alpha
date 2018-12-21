@@ -4,12 +4,11 @@ import 'semantic-ui-css/semantic.min.css';
 
 import './assets/index.scss';
 
-import App from './containers/App';
+import Routing from './containers/Routing';
 
 import * as serviceWorker from './serviceworker/serviceWorker';
 
-const appName = 'Weather App';
-ReactDOM.render(<App appName={appName} />, document.getElementById('root'));
+ReactDOM.render(<Routing />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
