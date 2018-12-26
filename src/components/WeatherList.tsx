@@ -8,20 +8,21 @@ interface IProps {
 	list?: object[] | any;
 }
 
-const from = {
-	opacity: 0
-};
-const to = {
+const from = (i: number) => ({
+	opacity: i < 10 ? (i * 50) / 100 : i / 1000
+});
+
+const to = (i?: number) => ({
 	opacity: 1
-};
+});
 
 const WeatherList: SFC<IProps> = ({ list }) => {
 	return <Container>{renderList(list)}</Container>;
 };
 
 const renderList = (list: object[]) =>
-	list.map((item: object | any) => (
-		<Spring key={item.id} from={from} to={to}>
+	list.map((item: object | any, i: number) => (
+		<Spring key={item.id} from={from(i)} to={to}>
 			{styles => <DayCard styles={styles} todayWeather={item} />}
 		</Spring>
 	));

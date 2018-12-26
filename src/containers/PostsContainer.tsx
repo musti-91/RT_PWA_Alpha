@@ -8,12 +8,13 @@ import InputField from '../components/forms/InputField';
 interface IProps {
 	appName?: string | any;
 	author?: string | any;
+	style: any;
 }
 
 interface IState {
 	title: string;
 	[x: string]: any;
-	description: string | any;
+	body: string | any;
 	posts: object[];
 	edit: boolean;
 	postId: string | number /* post id to edit */;
@@ -24,33 +25,32 @@ class PostsContainer extends Component<IProps, IState> {
 		posts: [],
 		postId: '',
 		title: '',
-		description: '',
+		body: '',
 		edit: false
 	};
 
 	componentDidMount() {
-		this.fetchPosts().then(res => this.addPostToState(res));
+		this.fetchPosts().then(res => this.addPostsToState(res));
 	}
 
 	render() {
 		const { appName } = this.props;
-		const { offline, posts, title, description } = this.state;
+		const { offline, posts, title, body } = this.state;
 		return (
 			<Container className="app_theme">
-				{/* <Header title={appName} onClick={this.onHeaderTitleClicked} /> */}
 				<InputField
 					onSubmit={this.onSubmit}
 					onChange={this.onChange}
 					hasButton
+					buttonContent="add"
 					name="title"
 					value={title}
 				/>
 				<InputField
 					onChange={this.onChange}
 					onSubmit={this.onSubmit}
-					hasButton={false}
-					name="description"
-					value={description}
+					name="body"
+					value={body}
 				/>
 				{posts.length !== 0 && this.renderPosts(posts)}
 			</Container>
@@ -63,11 +63,13 @@ class PostsContainer extends Component<IProps, IState> {
 			onPostDelete={this.onPostDelete}
 			onPostEdit={this.onPostEdit}
 			onPostClicked={this.onPostClicked}
+			onAddToFavourite={this.addToFavourite}
 		/>
 	);
+
 	onSubmit = (eve: object | any) => {
 		eve.preventDefault();
-		const { title, description, posts, edit, postId } = this.state;
+		const { title, body, posts, edit, postId } = this.state;
 		if (title.trim() === '') {
 			// warning
 			return;
@@ -75,34 +77,23 @@ class PostsContainer extends Component<IProps, IState> {
 
 		const post = {
 			title,
-			author: 'user_name',
-			description,
+			userId: Math.floor(Math.random() * 10),
+			body,
 			read_it: false
 		};
 
 		if (!edit) {
 			api.post(post).then(postId =>
 				this.setState({
-					posts: [...posts, { id: postId.id, ...post }],
+					posts: [{ id: postId.id, ...post }, ...posts],
 					title: '',
-					description: '',
+					body: '',
 					postId: '',
 					edit: false
 				})
 			);
 		} else {
-			api.put(postId, post).then(updatedPost =>
-				this.setState({
-					posts: [
-						...posts.filter((post: any) => post.id !== updatedPost.id),
-						updatedPost
-					],
-					title: '',
-					description: '',
-					postId: '',
-					edit: false
-				})
-			);
+			api.put(postId, post).then(updatedPost => this.updateState(updatedPost));
 		}
 	};
 
@@ -124,21 +115,47 @@ class PostsContainer extends Component<IProps, IState> {
 	onPostEdit = (id: number | any, post: object | any) => {
 		this.setState({
 			title: post.title,
-			description: post.description,
+			body: post.body,
 			edit: true,
-			postId: id
+			postId: id,
 		});
 	};
 
 	onPostClicked = (id: number | string) => {
 		///route to the page
 	};
+
+	addToFavourite = (id: any) => {
+		const { posts } = this.state;
+		posts.forEach((post: any) => {
+			if (post.id === id && !post.fav) {
+				api
+					.put(id, { ...post, fav: true })
+					.then((updatedPost: object | any) => this.updateState(updatedPost));
+			}
+		});
+	};
+
 	fetchPosts = async () => await api.get();
 
-	addPostToState = (posts: object[]) =>
-		this.setState(() => ({ posts: [...posts] }));
+	updateState = (updatedPost: any) => {
+		const { posts } = this.state;
+		this.setState({
+			posts: [...posts.filter((post: any) => post.id !== updatedPost.id), updatedPost ],
+			title: '',
+			body: '',
+			postId: '',
+			edit: false
+		});
+	};
+
+	addPostsToState = (posts: object[]) => {
+		if (posts.length >= 50) {
+			posts.length = 10;
+			this.setState(() => ({ posts: [...posts] }));
+		}
+	};
 
 	onHeaderTitleClicked = (e: any) => window.location.reload();
-
 }
 export default PostsContainer;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spring } from 'react-spring';
+import { Transition } from 'react-spring';
 import { Icon } from 'semantic-ui-react';
 
 interface IProps {
@@ -7,6 +7,7 @@ interface IProps {
 	onPostDelete: (id?: any) => void;
 	onPostEdit: (id?: number | any, post?: object) => void;
 	onPostClicked: (id: number | string) => void;
+	onAddToFavourite: (id: number | string) => void;
 }
 /**
  * post : {
@@ -19,12 +20,23 @@ interface IProps {
  */
 
 class Posts extends Component<IProps> {
+	state = {
+		showShareMenu: false,
+		show: true
+	};
 	render() {
-		const { posts, onPostDelete, onPostEdit, onPostClicked } = this.props;
+		const {
+			posts,
+			onPostDelete,
+			onPostEdit,
+			onPostClicked,
+			onAddToFavourite
+		} = this.props;
+		const { showShareMenu, show } = this.state;
 
-		return posts.map((post: object | any, id: number) => (
-			<Spring from={fromOpt} to={toOpt} key={id}>
-				{animationStyle => (
+		return posts.map((post: any) => (
+			<Transition from={fromOpt} enter={enterOpt} leave={leaveOpt} items={show}>
+				{show => animationStyle => (
 					<li
 						className="list"
 						style={animationStyle}
@@ -32,24 +44,26 @@ class Posts extends Component<IProps> {
 					>
 						<div>
 							<h3>{post.title}</h3>
-							<h4>{post.description}</h4>
+							<h4>{post.body}</h4>
 							<span>
 								<Icon name="sun" color="yellow" />
-								{post.author}
+								{post.userId}
 							</span>
 						</div>
 						<div className="list_icons">
-							<span>
+							<span onClick={() => onAddToFavourite(post.id)}>
 								<Icon
-									name={post.read_it ? 'heart' : 'heart outline'}
+									name={post.fav ? 'heart' : 'heart outline'}
 									size="small"
 									inverted
+									color={post.fav ? 'red' : 'grey'}
 								/>
 							</span>
 							<span>
 								<Icon
 									name={post.read_it ? 'eye' : 'eye slash outline'}
-									size="small" inverted
+									size="small"
+									inverted
 								/>
 							</span>
 							<span onClick={() => onPostDelete(post.id)}>
@@ -64,19 +78,52 @@ class Posts extends Component<IProps> {
 						</div>
 					</li>
 				)}
-			</Spring>
+			</Transition>
 		));
 	}
 }
 
+// onShareClickedMenu = () => {
+// 	const { showShareMenu } = this.state;
+// 	this.setState(() => ({ showShareMenu: !showShareMenu }));
+
+// 	setTimeout(
+// 		() => this.setState(() => ({ showShareMenu: !this.state.showShareMenu })),
+// 		1500
+// 	);
+// };
+
+// // this function will do his job later
+// showShareMenu = async (post: object | any) => {
+// 	// let text = post.title + post.description;
+// 	const from = {
+// 		opacity: 0,
+// 		transfrom: 'rotate(180deg) translate(-100%, 0%)',
+// 		color: '#fff'
+// 	};
+// 	const to = {
+// 		opacity: 1,
+// 		transform: 'rotate(90deg) translate(-100%, -40%)',
+// 		color: '#fff'
+// 	};
+// 	// 	await navigator.clipboard.writeText(text); // not suppoortted
+// 	return (
+// 		<Spring from={from} to={to}>
+// 			{styles => <span style={styles}>copied</span>}
+// 		</Spring>
+// 	);
+// };
+
 const fromOpt = {
 	opacity: 0,
-	transform: `translateY(-180%)`,
-	transition: `transform 300ms`
+	transform: 'translate3d(0,-40px,0)'
 };
-const toOpt = {
+const enterOpt = {
 	opacity: 1,
-	transform: 'translateY(0)',
-	transition: `transform 300ms`
+	transform: 'translate3d(0,0px,0)'
+};
+const leaveOpt = {
+	opacity: 0,
+	transform: 'translate3d(0,-40px,0)'
 };
 export default Posts;

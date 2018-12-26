@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-
+import { Spring } from 'react-spring';
 import { Container } from 'semantic-ui-react';
 
+import { Link, NavLink } from 'react-router-dom';
 import WeatherContainer from './WeatherContainer';
 import PostsContainer from './PostsContainer';
 
@@ -12,7 +12,12 @@ class Home extends Component<IProps> {
 		return (
 			<Container>
 				<WeatherContainer />
-				<PostsContainer />
+				<Spring
+					from={{ opacity: 0, transform: 'translateY(-90%)' }}
+					to={{ opacity: 1, transform: 'translateY(0)' }}
+				>
+					{styles => <PostsContainer style={styles} />}
+				</Spring>
 			</Container>
 		);
 	}

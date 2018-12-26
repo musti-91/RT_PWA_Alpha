@@ -1,0 +1,25 @@
+.week_card {
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .8);
+  .day {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    .week_icon {
+      display: block;
+      width: 40px;
+      height: 40px;
+      .small_card_detail {
+        display: flex;
+        flex-direction: row
+      }
+    }
+  }
+}

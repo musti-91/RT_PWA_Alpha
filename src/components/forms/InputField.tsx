@@ -8,6 +8,7 @@ interface IForm extends FormProps {
 	name?: string;
 	value?: string;
 	hasButton?: boolean;
+	buttonContent?: string | any;
 }
 
 const InputField: SFC<IForm> = ({
@@ -16,11 +17,11 @@ const InputField: SFC<IForm> = ({
 	onChange,
 	value,
 	hasButton,
-	placeholder
+	buttonContent
 }) => {
 	return (
 		<>
-			<form onSubmit={onSubmit} className="form">
+			<div className="form">
 				<input
 					onChange={onChange}
 					value={value}
@@ -29,9 +30,13 @@ const InputField: SFC<IForm> = ({
 					autoComplete="off"
 				/>
 				{hasButton && (
-					<DefaultButton onClick={onSubmit} content="Add" icon="add"/>
+					<DefaultButton
+						onClick={onSubmit}
+						content={buttonContent}
+						icon={buttonContent}
+					/>
 				)}
-			</form>
+			</div>
 		</>
 	);
 };

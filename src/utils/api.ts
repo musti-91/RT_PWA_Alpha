@@ -1,11 +1,11 @@
 export let api = {
 	get: () =>
-		fetch('http://localhost:2000/posts/')
+		fetch('https://jsonplaceholder.typicode.com/posts/')
 			.then(res => res.json())
 			.then(res => res)
 			.catch(error => console.log(error)),
 	post: (post: object) =>
-		fetch('http://localhost:2000/posts/', {
+		fetch('https://jsonplaceholder.typicode.com/posts/', {
 			method: 'POST',
 			body: JSON.stringify(post),
 			headers: {
@@ -16,12 +16,14 @@ export let api = {
 			.then(res => res)
 			.catch(error => console.log(error)),
 	delete: (id: number | any) =>
-		fetch(`http://localhost:2000/posts/${id}`, { method: 'DELETE' })
+		fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+			method: 'DELETE'
+		})
 			.then(res => res.json())
 			.then(res => res)
 			.catch(error => console.log(error)),
 	put: (id: string | number, newPost: object) =>
-		fetch(`http://localhost:2000/posts/${id}`, {
+		fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
 			method: 'PUT',
 			body: JSON.stringify(newPost),
 			headers: {

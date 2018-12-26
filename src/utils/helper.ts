@@ -42,14 +42,15 @@ export const formatDate = (date: string) =>
 export let getWeatherOfToday = (response: object | any) => {
 	let convertedDate;
 	let todayWeather: any = [];
-	response.list.forEach((day: any) => {
-		convertedDate = moment(day.dt_txt).format('ddd'); // Fri
-		let today = moment(new Date()).format('ddd'); // Fri
-		if (convertedDate === today) {
-			console.log(day);
-			todayWeather.push(day);
-		}
-	});
+	if (response.list.length !== 0) {
+		response.list.forEach((day: any) => {
+			convertedDate = moment(day.dt_txt).format('ddd'); // Fri
+			let today = moment(new Date()).format('ddd'); // Fri
+			if (convertedDate === today) {
+				todayWeather.push(day);
+			}
+		});
+	}
 	return filterHours(todayWeather);
 };
 
@@ -76,73 +77,73 @@ let filterHours = (list: any) => {
 	}
 };
 
-let formatObject = (obj: object | any) => {
-	return {
-		dt_txt: obj.dt_txt,
-		temp: {
-			c: f2c(obj.main.temp),
-			c_icon: getIcon('c'),
-			f: obj.main.temp,
-			f_icon: getIcon('f')
-		},
-		humidity: { deg: obj.main.humidity, icon: getIcon('humidity') },
-		pressure: { deg: obj.main.pressure, icon: getIcon('pressure') },
-		wind: { deg: obj.wind.speed, icon: getIcon('wind') },
-		id: obj.weather[0].id,
-		main: obj.weather[0].main,
-		description: obj.weather[0].description,
-		icon: getIcon(obj.weather[0].icon)
-	};
-};
-export let apiresponse = {
-	city: {
-		id: 2794118,
-		name: 'Kontich',
-		coord: {
-			lat: 51.1344,
-			lon: 4.4456
-		},
-		country: 'BE',
-		population: 20591
+let formatObject = (obj: object | any) => ({
+	dt_format: moment(obj.dt_txt).format('ddd'),
+	dt_txt: obj.dt_txt,
+	temp: {
+		c: f2c(obj.main.temp) + '\xB0C',
+		c_icon: getIcon('c'),
+		f: obj.main.temp,
+		f_icon: getIcon('f') + '\xB0F'
 	},
-	cod: '200',
-	message: 0.1667,
-	cnt: 40,
-	list: [
-		{
-			dt: 1545426000,
-			main: {
-				temp: 283.2,
-				temp_min: 282.237,
-				temp_max: 283.2,
-				pressure: 1018.54,
-				sea_level: 1021.57,
-				grnd_level: 1018.54,
-				humidity: 93,
-				temp_kf: 0.97
-			},
-			weather: [
-				{
-					id: 500,
-					main: 'Rain',
-					description: 'light rain',
-					icon: '10n'
-				}
-			],
-			clouds: {
-				all: 80
-			},
-			wind: {
-				speed: 8.26,
-				deg: 260
-			},
-			rain: {
-				'3h': 0.029999999999999
-			},
-			sys: {
-				pod: 'n'
-			},
-			dt_txt: '2018-12-21 21:00:00'
+	humidity: { deg: obj.main.humidity + '\xB0', icon: getIcon('humidity') },
+	pressure: { deg: obj.main.pressure + '\xB0', icon: getIcon('pressure') },
+	wind: { deg: obj.wind.speed, icon: getIcon('wind') },
+	id: obj.weather[0].id,
+	main: obj.weather[0].main,
+	description: obj.weather[0].description,
+	icon: getIcon(obj.weather[0].icon)
+});
+
+const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+const formattingWeekDays = (array: any) => {
+	let tempObject: any = {};
+	let tempArray: any = [];
+	weekDays.forEach(weekday => (tempObject[weekday] = []));
+	array.forEach((el: any) => {
+		switch (el.dt_format) {
+			case 'Mon':
+				tempObject['Mon'].push(el);
+				break;
+			case 'Tue':
+				tempObject['Tue'].push(el);
+				break;
+			case 'Wed':
+				tempObject['Wed'].push(el);
+				break;
+			case 'Thu':
+				tempObject['Thu'].push(el);
+				break;
+			case 'Fri':
+				tempObject['Fri'].push(el);
+				break;
+			case 'Sat':
+				tempObject['Sat'].push(el);
+				break;
+			case 'Sun':
+				tempObject['Sun'].push(el);
+				break;
 		}
-	]
+		tempArray.push(tempObject);
+	});
+	return tempArray;
+};
+export let getWeekWeather = (res: object | any) => {
+	let min_maxDays: object[] = [];
+	if (res && res.list.length !== 0) {
+		res.list.forEach((current: object | any) => {
+			if (
+				current.dt_txt.indexOf('09:00') !== -1 ||
+				current.dt_txt.indexOf('21:00') !== -1
+			) {
+				min_maxDays.push(formatObject(current));
+			}
+		});
+	}
+	// temp(formattingWeekDays(min_maxDays)[0]);
+	return formattingWeekDays(min_maxDays)[0];
+};
+const temp = (min_maxDays: object[] | any) => {
+	console.log(min_maxDays);
 };

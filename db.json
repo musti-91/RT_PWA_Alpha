@@ -1,18 +1,18 @@
 {
   "posts": [
     {
-      "title": "soe",
+      "title": "another one",
       "author": "user_name",
-      "description": "anpther",
+      "body": "will do",
       "read_it": false,
-      "id": 16
+      "id": 1
     },
     {
-      "title": "Some",
+      "title": "in normal View",
       "author": "user_name",
-      "description": "read",
+      "body": "in normal view this will be not nice",
       "read_it": false,
-      "id": 17
+      "id": 2
     }
   ],
   "weather": [

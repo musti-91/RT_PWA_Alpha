@@ -1,5 +1,5 @@
 import React, { SFC } from 'react';
-import { Container, Image, Icon } from 'semantic-ui-react';
+import { Container, Image } from 'semantic-ui-react';
 
 interface IProps {
 	todayWeather: object | any;
@@ -7,16 +7,13 @@ interface IProps {
 }
 
 const DayCard: SFC<IProps> = ({ todayWeather, styles }) => {
-	console.log(todayWeather);
 	return (
 		<Container style={styles} className="list">
 			<div className="today_">
 				<Image src={todayWeather.icon} className="icon" />
 				<div className="today_temp">
-					<h2>
-						{todayWeather.description} {todayWeather.temp.c}
-					</h2>
-					<Image src={todayWeather.temp.c_icon} className="c_icon" />
+					<h2>{todayWeather.temp.c}</h2>
+					<h2>{todayWeather.main}</h2>
 				</div>
 				<div className="labels">
 					<div>

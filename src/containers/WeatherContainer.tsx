@@ -4,7 +4,10 @@ import { Spring } from 'react-spring';
 import { weatherApi, geolocationApi } from '../utils/weatherAPI';
 import WeatherList from '../components/WeatherList';
 import DayCard from '../components/DayCard';
-import { getWeatherOfToday, apiresponse } from '../utils/helper';
+import { getWeatherOfToday, getWeekWeather } from '../utils/helper';
+import { apiresponse } from '../utils/apiResponse';
+import WeekCard from '../components/WeekCard';
+
 interface IProps {}
 interface IState {
 	navigator: object | any;
@@ -18,23 +21,27 @@ interface IState {
 
 class WeatherContainer extends Component<IProps, IState> {
 	state: IState = {
-		navigator: !navigator.onLine,
+		navigator: !navigator.onLine, // offline
 		location: '',
 		wpId: null,
-		weatherDataAvailable: true,
+		weatherDataAvailable: false,
 		weatherData: null,
 		weatherDay: {},
 		position: {
-			lat: 0,
-			lng: 0
+			lat: 1,
+			lng: 1
 		}
 	};
 
 	componentDidMount() {
 		window.addEventListener('online', this.onOfflineMode);
 		window.addEventListener('offline', this.onOfflineMode);
-		// this.getPositionPermission();
-		// this.watchPosition();
+		this.getPositionPermission();
+		this.watchPosition();
+		const { position } = this.state;
+		if (position) {
+			this.locatePosition(position);
+		}
 	}
 
 	componentWillUnmount() {
@@ -44,13 +51,19 @@ class WeatherContainer extends Component<IProps, IState> {
 	}
 
 	render() {
-		const { navigator, weatherDataAvailable } = this.state;
+		const {
+			navigator,
+			weatherDataAvailable,
+			weatherData,
+			weatherDay
+		} = this.state;
 		return (
 			<Container className="weather_container">
-				{!navigator && this.renderOfflineBadge('offline')}
+				{navigator && this.renderOfflineBadge('offline')}
 				{!this.checkGeolocationInNavigator() &&
-					this.renderOfflineBadge(`You're hiding in this planet`)}
-				{weatherDataAvailable && this.renderWeatherInfo()}
+					this.renderOfflineBadge(`You have no Coordinates 😃`)}
+				{weatherDataAvailable && this.renderTodayWeather(weatherData)}
+				{weatherDataAvailable && this.renderWeekWeather(weatherData)}
 			</Container>
 		);
 	}
@@ -65,8 +78,18 @@ class WeatherContainer extends Component<IProps, IState> {
 		</Spring>
 	);
 
-	renderWeatherInfo() {
-		return <DayCard todayWeather={getWeatherOfToday(apiresponse)} />;
+	renderTodayWeather(data: object) {
+		return <DayCard todayWeather={getWeatherOfToday(data)} />;
+	}
+
+	renderWeekWeather(data: any) {
+		let weekList = getWeekWeather(data);
+		const keys = data && Object.keys(weekList);
+		let values: any = [];
+		for (let key in weekList) {
+			values.push(weekList[key]);
+		}
+		return <WeekCard week={weekList} weekdays={keys} />;
 	}
 
 	checkGeolocationInNavigator = () => 'geolocation' in navigator; // return true
@@ -100,7 +123,7 @@ class WeatherContainer extends Component<IProps, IState> {
 			.then(weatherInfo => {
 				if (weatherInfo) {
 					this.setState({
-						weatherDataAvailable: false,
+						weatherDataAvailable: true,
 						weatherData: weatherInfo
 					});
 				}
@@ -118,7 +141,6 @@ class WeatherContainer extends Component<IProps, IState> {
 			}
 		}));
 		this.locatePosition(this.state.position);
-		console.log(this.state.weatherDataAvailable);
 	};
 	failedFetchLocation = (error: any) => console.log(error);
 }
