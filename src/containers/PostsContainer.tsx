@@ -5,10 +5,8 @@ import { api } from '../utils/api';
 import Posts from '../components/posts/Posts';
 import InputField from '../components/forms/InputField';
 
-interface IProps {
-	appName?: string | any;
-	author?: string | any;
-	style: any;
+interface IPostsProps {
+	style?: React.CSSProperties;
 }
 
 interface IState {
@@ -20,7 +18,7 @@ interface IState {
 	postId: string | number /* post id to edit */;
 }
 
-class PostsContainer extends Component<IProps, IState> {
+class PostsContainer extends Component<IPostsProps, IState> {
 	state: IState = {
 		posts: [],
 		postId: '',
@@ -34,10 +32,9 @@ class PostsContainer extends Component<IProps, IState> {
 	}
 
 	render() {
-		const { appName } = this.props;
-		const { offline, posts, title, body } = this.state;
+		const { posts, title, body } = this.state;
 		return (
-			<Container className="app_theme">
+			<Container className="post-container">
 				<InputField
 					onSubmit={this.onSubmit}
 					onChange={this.onChange}
@@ -117,7 +114,7 @@ class PostsContainer extends Component<IProps, IState> {
 			title: post.title,
 			body: post.body,
 			edit: true,
-			postId: id,
+			postId: id
 		});
 	};
 
@@ -141,7 +138,10 @@ class PostsContainer extends Component<IProps, IState> {
 	updateState = (updatedPost: any) => {
 		const { posts } = this.state;
 		this.setState({
-			posts: [...posts.filter((post: any) => post.id !== updatedPost.id), updatedPost ],
+			posts: [
+				...posts.filter((post: any) => post.id !== updatedPost.id),
+				updatedPost
+			],
 			title: '',
 			body: '',
 			postId: '',

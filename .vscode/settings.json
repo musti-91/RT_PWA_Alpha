@@ -1,0 +1,6 @@
+{
+  "typescript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "prettier.semi": false,
+  "editor.fontFamily": "Fira Code"
+}

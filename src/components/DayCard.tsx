@@ -3,12 +3,12 @@ import { Container, Image } from 'semantic-ui-react';
 
 interface IProps {
 	todayWeather: object | any;
-	styles?: object | any;
+	style?:any;
 }
 
-const DayCard: SFC<IProps> = ({ todayWeather, styles }) => {
+const DayCard: SFC<IProps> = ({ todayWeather, style }) => {
 	return (
-		<Container style={styles} className="list">
+		<Container style={style} className="list">
 			<div className="today_">
 				<Image src={todayWeather.icon} className="icon" />
 				<div className="today_temp">

@@ -1,5 +1,5 @@
 import React, { SFC, useState } from 'react';
-import { Container, Item } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { Spring } from 'react-spring';
 
 import DayCard from './DayCard';
@@ -23,7 +23,7 @@ const WeatherList: SFC<IProps> = ({ list }) => {
 const renderList = (list: object[]) =>
 	list.map((item: object | any, i: number) => (
 		<Spring key={item.id} from={from(i)} to={to}>
-			{styles => <DayCard styles={styles} todayWeather={item} />}
+			{styles => <DayCard style={styles} todayWeather={item} />}
 		</Spring>
 	));
 

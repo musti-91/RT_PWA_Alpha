@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Transition } from 'react-spring';
-import { Icon } from 'semantic-ui-react';
-
+import CardTitle from '../label/CardTitle';
+import Menu from '../menu/Menu'
+import MenuItem from '../menu/MenuItem';
+import ListItem from '../ListItem'
 interface IProps {
 	posts: object[] | any;
-	onPostDelete: (id?: any) => void;
-	onPostEdit: (id?: number | any, post?: object) => void;
-	onPostClicked: (id: number | string) => void;
-	onAddToFavourite: (id: number | string) => void;
+	onPostDelete: ( id?: any ) => void;
+	onPostEdit: ( id?: number | any, post?: object ) => void;
+	onPostClicked: ( id: number | string ) => void;
+	onAddToFavourite: ( id: number | string ) => void;
 }
 /**
  * post : {
@@ -20,10 +22,7 @@ interface IProps {
  */
 
 class Posts extends Component<IProps> {
-	state = {
-		showShareMenu: false,
-		show: true
-	};
+	state = { show: true };
 	render() {
 		const {
 			posts,
@@ -32,54 +31,32 @@ class Posts extends Component<IProps> {
 			onPostClicked,
 			onAddToFavourite
 		} = this.props;
-		const { showShareMenu, show } = this.state;
+		const {show } = this.state;
 
-		return posts.map((post: any) => (
+		return posts.map( ( post: any ) => (
 			<Transition from={fromOpt} enter={enterOpt} leave={leaveOpt} items={show}>
 				{show => animationStyle => (
-					<li
-						className="list"
+					<ListItem
+						customStyle="list-item"
 						style={animationStyle}
-						onClick={() => onPostClicked(post.id)}
+						onClick={() => onPostClicked( post.id )}
 					>
-						<div>
-							<h3>{post.title}</h3>
-							<h4>{post.body}</h4>
-							<span>
-								<Icon name="sun" color="yellow" />
-								{post.userId}
-							</span>
-						</div>
-						<div className="list_icons">
-							<span onClick={() => onAddToFavourite(post.id)}>
-								<Icon
-									name={post.fav ? 'heart' : 'heart outline'}
-									size="small"
-									inverted
-									color={post.fav ? 'red' : 'grey'}
-								/>
-							</span>
-							<span>
-								<Icon
-									name={post.read_it ? 'eye' : 'eye slash outline'}
-									size="small"
-									inverted
-								/>
-							</span>
-							<span onClick={() => onPostDelete(post.id)}>
-								<Icon name="trash" color="red" size="small" />
-							</span>
-							<span onClick={() => onPostEdit(post.id, post)}>
-								<Icon name="edit" size="small" inverted />
-							</span>
-							<span>
-								<Icon name="send" size="small" inverted />
-							</span>
-						</div>
-					</li>
+						<CardTitle title={post.title} body={post.body} icon="user" data={post.userId} />
+						<Menu>
+							<MenuItem onClick={() => onAddToFavourite( post.id )} iconName={post.fav ? 'heart' : 'heart outline'} size="small" color={post.fav ? 'red' : 'grey'} />
+
+							<MenuItem iconName={post.read_it ? "eye" : "eye slash outline"} size='small' />
+
+							<MenuItem onClick={() => onPostDelete( post.id )} iconName='trash' color="red" size="small" />
+
+							<MenuItem onClick={() => onPostEdit( post.id, post )} iconName="edit" size="small" />
+
+							<MenuItem iconName="send" size="small" />
+						</Menu>
+					</ListItem>
 				)}
 			</Transition>
-		));
+		) );
 	}
 }
 

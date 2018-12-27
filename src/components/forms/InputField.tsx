@@ -3,25 +3,18 @@ import { FormProps } from 'semantic-ui-react';
 
 import DefaultButton from '../buttons/Button';
 interface IForm extends FormProps {
-	onSubmit?: (e: any) => void;
-	onChange: (e: object | any) => void;
+	onSubmit?: ( e: any ) => void;
+	onChange: ( e: object | any ) => void;
 	name?: string;
 	value?: string;
 	hasButton?: boolean;
 	buttonContent?: string | any;
 }
 
-const InputField: SFC<IForm> = ({
-	name,
-	onSubmit,
-	onChange,
-	value,
-	hasButton,
-	buttonContent
-}) => {
+const InputField: SFC<IForm> = ( { name, onSubmit, onChange, value, hasButton, buttonContent } ) => {
 	return (
 		<>
-			<div className="form">
+			<div className="field">
 				<input
 					onChange={onChange}
 					value={value}
@@ -32,7 +25,7 @@ const InputField: SFC<IForm> = ({
 				{hasButton && (
 					<DefaultButton
 						onClick={onSubmit}
-						content={buttonContent}
+						content={""}
 						icon={buttonContent}
 					/>
 				)}

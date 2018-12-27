@@ -14,7 +14,7 @@ class WeekCard extends Component<IProps> {
 		let weekday = this.renderDays(week);
 		return (
 			<Container>
-				<div className="week_card">{week && weekday}</div>
+				<div className="week-card">{week && weekday}</div>
 			</Container>
 		);
 	}

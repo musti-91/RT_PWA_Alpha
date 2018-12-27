@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Container, Label } from 'semantic-ui-react';
-import { Spring } from 'react-spring';
 import { weatherApi, geolocationApi } from '../utils/weatherAPI';
-import WeatherList from '../components/WeatherList';
-import DayCard from '../components/DayCard';
 import { getWeatherOfToday, getWeekWeather } from '../utils/helper';
-import { apiresponse } from '../utils/apiResponse';
+import { Spring } from 'react-spring';
+import { Container, Label } from 'semantic-ui-react';
 import WeekCard from '../components/WeekCard';
+import DayCard from '../components/DayCard';
 
-interface IProps {}
+interface IProps {
+	style?: React.CSSProperties;
+}
 interface IState {
 	navigator: object | any;
 	location: string;
@@ -58,10 +58,10 @@ class WeatherContainer extends Component<IProps, IState> {
 			weatherDay
 		} = this.state;
 		return (
-			<Container className="weather_container">
+			<Container className="weather-container">
 				{navigator && this.renderOfflineBadge('offline')}
 				{!this.checkGeolocationInNavigator() &&
-					this.renderOfflineBadge(`You have no Coordinates 😃`)}
+					this.renderOfflineBadge(`You have no Coordinates 💩`)}
 				{weatherDataAvailable && this.renderTodayWeather(weatherData)}
 				{weatherDataAvailable && this.renderWeekWeather(weatherData)}
 			</Container>
