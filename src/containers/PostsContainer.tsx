@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { Container } from 'semantic-ui-react';
 import { api } from '../utils/api';
 
@@ -28,7 +29,7 @@ class PostsContainer extends Component<IPostsProps, IState> {
 	};
 
 	componentDidMount() {
-		this.fetchPosts().then(res => this.addPostsToState(res));
+		this.fetchPosts().then( res => this.addPostsToState( res ) );
 	}
 
 	render() {
@@ -49,12 +50,12 @@ class PostsContainer extends Component<IPostsProps, IState> {
 					name="body"
 					value={body}
 				/>
-				{posts.length !== 0 && this.renderPosts(posts)}
+				{posts.length !== 0 && this.renderPosts( posts )}
 			</Container>
 		);
 	}
 
-	renderPosts = (posts: object[]) => (
+	renderPosts = ( posts: object[] ) => (
 		<Posts
 			posts={posts}
 			onPostDelete={this.onPostDelete}
@@ -64,98 +65,101 @@ class PostsContainer extends Component<IPostsProps, IState> {
 		/>
 	);
 
-	onSubmit = (eve: object | any) => {
+	onSubmit = ( eve: object | any ) => {
 		eve.preventDefault();
 		const { title, body, posts, edit, postId } = this.state;
-		if (title.trim() === '') {
+		if ( title.trim() === '' ) {
 			// warning
 			return;
 		}
 
 		const post = {
 			title,
-			userId: Math.floor(Math.random() * 10),
+			userId: Math.floor( Math.random() * 10 ),
 			body,
 			read_it: false
 		};
 
-		if (!edit) {
-			api.post(post).then(postId =>
-				this.setState({
+		if ( !edit ) {
+			api.post( post ).then( postId =>
+				this.setState( {
 					posts: [{ id: postId.id, ...post }, ...posts],
 					title: '',
 					body: '',
 					postId: '',
 					edit: false
-				})
+				} )
 			);
 		} else {
-			api.put(postId, post).then(updatedPost => this.updateState(updatedPost));
+			api.put( postId, post ).then( updatedPost => this.updateState( updatedPost ) );
 		}
 	};
 
-	onChange = (eve: any) => {
+	onChange = ( eve: any ) => {
 		const { name, value } = eve.target;
-		this.setState({
+		this.setState( {
 			[name]: value
-		});
+		} );
 	};
 
-	onPostDelete = (id: number | string) => {
+	onPostDelete = ( id: number | string ) => {
 		const { posts } = this.state;
-		this.setState(() => ({
-			posts: [...posts.filter((item: any) => item.id !== id)]
-		}));
-		api.delete(id);
+		this.setState( () => ( {
+			posts: [...posts.filter( ( item: any ) => item.id !== id )]
+		} ) );
+		api.delete( id );
 	};
 
-	onPostEdit = (id: number | any, post: object | any) => {
-		this.setState({
+	onPostEdit = ( id: number | any, post: object | any ) => {
+		this.setState( {
 			title: post.title,
 			body: post.body,
 			edit: true,
 			postId: id
-		});
+		} );
 	};
 
-	onPostClicked = (id: number | string) => {
+	onPostClicked = ( id: number | string ) => {
 		///route to the page
 	};
 
-	addToFavourite = (id: any) => {
+	addToFavourite = ( id: any ) => {
 		const { posts } = this.state;
-		posts.forEach((post: any) => {
-			if (post.id === id && !post.fav) {
+		posts.forEach( ( post: any ) => {
+			if ( post.id === id && !post.fav ) {
 				api
-					.put(id, { ...post, fav: true })
-					.then((updatedPost: object | any) => this.updateState(updatedPost));
+					.put( id, { ...post, fav: true } )
+					.then( ( updatedPost: object | any ) => this.updateState( updatedPost ) );
 			}
-		});
+		} );
 	};
 
 	fetchPosts = async () => await api.get();
 
-	updateState = (updatedPost: any) => {
+	updateState = ( updatedPost: any ) => {
 		const { posts } = this.state;
-		this.setState({
+		this.setState( {
 			posts: [
-				...posts.filter((post: any) => post.id !== updatedPost.id),
+				...posts.filter( ( post: any ) => post.id !== updatedPost.id ),
 				updatedPost
 			],
 			title: '',
 			body: '',
 			postId: '',
 			edit: false
-		});
+		} );
 	};
 
-	addPostsToState = (posts: object[]) => {
-		if (posts.length >= 50) {
+	addPostsToState = ( posts: object[] ) => {
+		if ( posts.length >= 50 ) {
 			posts.length = 10;
-			this.setState(() => ({ posts: [...posts] }));
+			this.setState( () => ( { posts: [...posts] } ) );
 		}
 	};
 
-	onHeaderTitleClicked = (e: any) => window.location.reload();
+	onHeaderTitleClicked = ( e: any ) => window.location.reload();
 }
+
+
+
 export default PostsContainer;
