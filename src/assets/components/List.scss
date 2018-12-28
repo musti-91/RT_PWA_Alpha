@@ -1,0 +1,32 @@
+.list-item {
+  margin: 0 auto;
+  max-height: 210px;
+  list-style-type: none;
+  width: 100%;
+  padding-left: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: left;
+  -webkit-box-shadow: 0px 0px 52px 0px rgba(0, 0, 0, 0.20);
+  -moz-box-shadow: 0px 0px 52px 0px rgba(0, 0, 0, 0.20);
+  box-shadow: 0px 0px 52px 0px rgba(0, 0, 0, 0.20);
+  transition: all 400ms;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  >div:first-child {
+    h4 {
+      font-size: 18px;
+    }
+    h3 {
+      text-transform: capitalize;
+      font-size: 20px;
+    }
+    span {
+      font-size: 10px;
+    }
+  }
+}

@@ -1,9 +1,10 @@
 import React, { SFC, ReactNode } from 'react';
+import { Icon } from 'semantic-ui-react';
 
 interface IProps {
 	title: string;
 	error?: string;
-	icon?: string;
+	icon?: any;
 	children?: ReactNode;
 }
 
@@ -14,10 +15,10 @@ const errorStyle = {
 const Label: SFC<IProps> = ({ title, error, icon, children }) => {
 	if (error) {
 		return (
-			<div>
-				<span style={errorStyle}>{title}</span>
-				<span style={errorStyle}>{error}</span>
-				<span style={errorStyle}>{icon}</span>
+			<div style={errorStyle}>
+				<span>{title}</span>
+				<span>{error}</span>
+				<span>{icon}</span>
 			</div>
 		);
 	}
@@ -25,7 +26,7 @@ const Label: SFC<IProps> = ({ title, error, icon, children }) => {
 	return (
 		<div className="label">
 			<span>{title}</span>
-			<span>{icon && <i className={icon}>{icon}</i>}</span>
+			<span>{icon && <Icon name={icon} />}</span>
 		</div>
 	);
 };

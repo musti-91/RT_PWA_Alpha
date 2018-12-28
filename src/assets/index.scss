@@ -1,7 +1,13 @@
-@import "./App.scss";
-@import "./Header.scss";
-@import "./InputField.scss";
-@import "./List.scss";
+@import "./containers/Home.scss";
+@import "./containers/PostContainer.scss";
+@import "./containers/weatherContainer.scss";
+@import "./components/Header.scss";
+@import "./components/InputField.scss";
+@import "./components/List.scss";
+@import "./components/Label.scss";
+@import "./components/DayCard.scss";
+@import "./components/WeekCard.scss";
+@import "./components/Menu.scss";
 body {
   margin: 0;
   padding: 0;
