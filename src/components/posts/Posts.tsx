@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Transition } from 'react-spring';
-import CardTitle from '../label/CardTitle';
+import CardTitle from '../Label/CardTitle';
 import Menu from '../menu/Menu'
 import MenuItem from '../menu/MenuItem';
 import ListItem from '../ListItem'
@@ -31,7 +31,7 @@ class Posts extends Component<IProps> {
 			onPostClicked,
 			onAddToFavourite
 		} = this.props;
-		const {show } = this.state;
+		const { show } = this.state;
 
 		return posts.map( ( post: any ) => (
 			<Transition from={fromOpt} enter={enterOpt} leave={leaveOpt} items={show}>
