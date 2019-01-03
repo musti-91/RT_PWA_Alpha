@@ -82,13 +82,13 @@ let formatObject = (obj: object | any) => ({
 	dt_txt: obj.dt_txt,
 	temp: {
 		c: f2c(obj.main.temp) + '\xB0C',
-		c_icon: getIcon('c'),
+		c_icon: icons.c,
 		f: obj.main.temp,
-		f_icon: getIcon('f') + '\xB0F'
+		f_icon: icons.f + '\xB0F'
 	},
-	humidity: { deg: obj.main.humidity + '\xB0', icon: getIcon('humidity') },
-	pressure: { deg: obj.main.pressure + '\xB0', icon: getIcon('pressure') },
-	wind: { deg: obj.wind.speed, icon: getIcon('wind') },
+	humidity: { deg: obj.main.humidity + '\xB0', icon: icons.humidity },
+	pressure: { deg: obj.main.pressure + '\xB0', icon: icons.pressure },
+	wind: { deg: obj.wind.speed, icon: icons.wind },
 	id: obj.weather[0].id,
 	main: obj.weather[0].main,
 	description: obj.weather[0].description,

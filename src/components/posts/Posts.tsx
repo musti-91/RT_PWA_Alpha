@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Transition } from 'react-spring';
-import CardTitle from '../label/CardTitle';
+import CardTitle from '../Label/CardTitle';
 import Menu from '../menu/Menu'
 import MenuItem from '../menu/MenuItem';
 import ListItem from '../ListItem'
@@ -11,27 +11,12 @@ interface IProps {
 	onPostClicked: ( id: number | string ) => void;
 	onAddToFavourite: ( id: number | string ) => void;
 }
-/**
- * post : {
- * id:"",
- * title,
- * body,
- * userId,
- * read_it
- * }
- */
 
 class Posts extends Component<IProps> {
 	state = { show: true };
 	render() {
-		const {
-			posts,
-			onPostDelete,
-			onPostEdit,
-			onPostClicked,
-			onAddToFavourite
-		} = this.props;
-		const {show } = this.state;
+		const { posts, onPostDelete, onPostEdit, onPostClicked, onAddToFavourite } = this.props;
+		const { show } = this.state;
 
 		return posts.map( ( post: any ) => (
 			<Transition from={fromOpt} enter={enterOpt} leave={leaveOpt} items={show}>
@@ -60,36 +45,6 @@ class Posts extends Component<IProps> {
 	}
 }
 
-// onShareClickedMenu = () => {
-// 	const { showShareMenu } = this.state;
-// 	this.setState(() => ({ showShareMenu: !showShareMenu }));
-
-// 	setTimeout(
-// 		() => this.setState(() => ({ showShareMenu: !this.state.showShareMenu })),
-// 		1500
-// 	);
-// };
-
-// // this function will do his job later
-// showShareMenu = async (post: object | any) => {
-// 	// let text = post.title + post.description;
-// 	const from = {
-// 		opacity: 0,
-// 		transfrom: 'rotate(180deg) translate(-100%, 0%)',
-// 		color: '#fff'
-// 	};
-// 	const to = {
-// 		opacity: 1,
-// 		transform: 'rotate(90deg) translate(-100%, -40%)',
-// 		color: '#fff'
-// 	};
-// 	// 	await navigator.clipboard.writeText(text); // not suppoortted
-// 	return (
-// 		<Spring from={from} to={to}>
-// 			{styles => <span style={styles}>copied</span>}
-// 		</Spring>
-// 	);
-// };
 
 const fromOpt = {
 	opacity: 0,

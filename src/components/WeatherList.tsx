@@ -16,15 +16,14 @@ const to = (i?: number) => ({
 	opacity: 1
 });
 
-const WeatherList: SFC<IProps> = ({ list }) => {
-	return <Container>{renderList(list)}</Container>;
-};
 
 const renderList = (list: object[]) =>
-	list.map((item: object | any, i: number) => (
-		<Spring key={item.id} from={from(i)} to={to}>
+list.map((item: object | any, i: number) => (
+	<Spring key={item.id} from={from(i)} to={to}>
 			{styles => <DayCard style={styles} todayWeather={item} />}
 		</Spring>
 	));
+
+const WeatherList: SFC<IProps> = ({ list }) => <Container>{renderList(list)}</Container>
 
 export default WeatherList;

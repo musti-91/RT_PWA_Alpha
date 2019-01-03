@@ -12,7 +12,7 @@ interface IProps {
 const MenuItem: SFC<IProps> = ( { title, iconName, size, onClick, color } ) => {
   return (
     <span onClick={onClick} className="menu-item">
-      {iconName && <Icon name={iconName} size={size} inverted />}
+      {iconName && <Icon name={iconName} size={size} inverted color={color} />}
       {title && <span>{title}</span>}
     </span>
   )

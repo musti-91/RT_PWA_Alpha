@@ -9,15 +9,9 @@ interface IProps {
 	onClick?: (e: any) => void;
 }
 
-const DefaultButton: SFC<IProps> = ({
-	content,
-	icon,
-	color,
-	onClick,
-	loading
-}) => {
+const DefaultButton: SFC<IProps> = ({ content, icon, color, onClick, loading }) => {
 	return (
-		<Button onClick={onClick} color="teal" className="button">
+		<Button onClick={ onClick } color="teal" className="button">
 			{icon && (
 				<Icon name={icon} color={color} loading={loading} />
 			)}

@@ -1,10 +1,10 @@
-import React, { SFC, Children } from 'react';
+import React, { SFC } from 'react';
 import MenuItem from './MenuItem';
 
 
 interface IProps { }
 
-const Menu: SFC<IProps> = ( { children, } ) => {
+const Menu: SFC<IProps> = ( { children } ) => {
   return (
     <div className="menu">
       {children}

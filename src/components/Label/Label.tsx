@@ -19,6 +19,7 @@ const Label: SFC<IProps> = ({ title, error, icon, children }) => {
 				<span>{title}</span>
 				<span>{error}</span>
 				<span>{icon}</span>
+				{children}
 			</div>
 		);
 	}
