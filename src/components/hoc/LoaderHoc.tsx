@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
-import moment from 'moment'
+import moment  from "moment"
+
 export interface InjectedProps {
 	loading?: boolean;
-	darkTheme?: string;
+	darkTheme?: boolean;
 	onClick?: () => void
 }
 
@@ -22,7 +23,7 @@ const LoaderHoc = <P extends InjectedProps>( WrappedComponent: React.ComponentTy
 
 		componentDidMount() {
 			let getTimeOfNow = moment().format( 'LT' ) // 2.30 PM
-			if ( getTimeOfNow.indexOf( 'PM' ) !== -1 ) {
+			if ( getTimeOfNow.indexOf( 'PM' ) !== -1 && getTimeOfNow.indexOf( "9.00" ) !== -1 ) {
 				this.setState( { darkTheme: true } )
 			}
 			setTimeout( () => {

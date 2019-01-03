@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
+import React, { SFC } from 'react';
+import { Container,Header } from 'semantic-ui-react';
+
 interface IProps {}
-class Post extends Component<IProps> {
-	render() {
-		return <div>Post</div>;
-	}
+
+
+const Post :SFC<IProps> = ({}) => {
+	return <Container>
+		<Header>Something</Header>
+	</Container>
 }
+
 export default Post;

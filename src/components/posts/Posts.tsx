@@ -20,7 +20,7 @@ class Posts extends Component<IProps> {
 
 		return posts.map( ( post: any ) => (
 			<Transition from={fromOpt} enter={enterOpt} leave={leaveOpt} items={show}>
-				{show => animationStyle => (
+				{() => animationStyle => (
 					<ListItem
 						customStyle="list-item"
 						style={animationStyle}
