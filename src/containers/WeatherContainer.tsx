@@ -5,8 +5,8 @@ import { Spring } from 'react-spring';
 import { Container, Label } from 'semantic-ui-react';
 import WeekCard from '../components/WeekCard';
 import DayCard from '../components/DayCard';
-
-interface IProps {
+import LoaderHoc, { InjectedProps } from '../components/hoc/LoaderHoc';
+interface IProps extends InjectedProps {
 	style?: React.CSSProperties;
 }
 interface IState {
@@ -144,4 +144,4 @@ class WeatherContainer extends Component<IProps, IState> {
 	};
 	failedFetchLocation = (error: any) => console.log(error);
 }
-export default WeatherContainer;
+export default LoaderHoc(WeatherContainer);

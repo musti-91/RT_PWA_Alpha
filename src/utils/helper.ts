@@ -147,3 +147,5 @@ export let getWeekWeather = ( res: object | any ) => {
 const temp = ( min_maxDays: object[] | any ) => {
 	console.log( min_maxDays );
 };
+
+export const showErrorMessage= (error: object, title: string ) => Object.assign({}, error, title)

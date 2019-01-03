@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
-import moment from 'moment'
+import moment  from "moment"
+
 export interface InjectedProps {
 	loading?: boolean;
-	darkTheme?: string;
+	darkTheme?: boolean;
 	onClick?: () => void
 }
 
@@ -13,9 +14,7 @@ interface InjectedState {
 }
 
 //TODO: change color of icon every loading
-const LoaderHoc = <P extends InjectedProps>(
-	WrappedComponent: React.ComponentType<P>
-) => {
+const LoaderHoc = <P extends InjectedProps>( WrappedComponent: React.ComponentType<P> ) => {
 	return class LoaderHoc extends Component<P & InjectedProps, InjectedState> {
 		state: InjectedState = {
 			loading: true,
@@ -24,10 +23,9 @@ const LoaderHoc = <P extends InjectedProps>(
 
 		componentDidMount() {
 			let getTimeOfNow = moment().format( 'LT' ) // 2.30 PM
-			if ( getTimeOfNow.indexOf( 'PM' ) !== -1 ) {
+			if ( getTimeOfNow.indexOf( 'PM' ) !== -1 && getTimeOfNow.indexOf( "9.00" ) !== -1 ) {
 				this.setState( { darkTheme: true } )
 			}
-
 			setTimeout( () => {
 				this.setState( { loading: false } );
 			}, 1000 );

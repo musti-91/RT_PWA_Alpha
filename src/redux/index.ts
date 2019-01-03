@@ -1,26 +1,21 @@
-import { combineReducers, applyMiddleware, compose, createStore } from "redux";
-import createSagaMiddleware from 'redux-saga'
-import { PostReducer } from './PostRedux'
-import { createLogger } from 'redux-logger'
+import { combineReducers, Reducer, AnyAction } from 'redux'
 
-export default ( () => {
-  const middlewares = []
-  const enhancers = []
+import { RootStateType } from '../types'
 
-  const rootReducers = combineReducers( {
-    posts: PostReducer,
-  } )
+import { INITIAL_STATE , homeReducer } from './home'
 
-  const sagaMiddleware = createSagaMiddleware()
-  middlewares.push( sagaMiddleware )
+export const initial_state: RootStateType = {
+  home: INITIAL_STATE
+}
 
-  const logger = createLogger()
-  middlewares.push( logger )
+export function createReducer(): Reducer<RootStateType>{
+  const reducer = combineReducers<RootStateType>({
+    home: homeReducer
+  })
 
-  enhancers.push( applyMiddleware( ...middlewares ) )
+  const rootReducer = (state: RootStateType | undefined , action: AnyAction): RootStateType => {
+    return reducer(state, action)
+  }
 
-  const store = createStore( rootReducers, compose( ...enhancers ) )
-
-  // sagaMiddleware.run(fetchPostsStart)
-  return store
-} )()
+  return rootReducer
+}
