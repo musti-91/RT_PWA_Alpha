@@ -1,5 +1,6 @@
 import React, { SFC } from 'react'
 import { Container, Image } from 'semantic-ui-react'
+import { FormattedMessage } from 'react-intl';
 
 interface IProps {
 	todayWeather: object | any
@@ -13,7 +14,7 @@ const DayCard: SFC<IProps> = ({ todayWeather, style }) => {
 				<Image src={todayWeather.icon} className="icon" />
 				<div className="today_temp">
 					<h2>{todayWeather.temp.c}</h2>
-					<h2>{todayWeather.main}</h2>
+					<h2><FormattedMessage id={todayWeather.main} /></h2>
 				</div>
 				<div className="labels">
 					<div>

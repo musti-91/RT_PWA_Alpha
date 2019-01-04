@@ -1,5 +1,6 @@
 import React, { SFC } from 'react'
 import { Image } from 'semantic-ui-react'
+import { FormattedMessage } from 'react-intl';
 
 interface IProps {
 	day: object | any
@@ -10,12 +11,12 @@ interface IProps {
 const SmallCard: SFC<IProps> = ({ day, weekday }) => {
 	return (
 		<div className="day">
-			<h3>{weekday}</h3>
+			<h3><FormattedMessage id={weekday} /></h3>
 			<div>
 				<Image src={day[0].icon} className="week_icon" />
 			</div>
-			<h4>{day[0].main}</h4>
-			<p>{day[0].description}</p>
+			<h4><FormattedMessage id={day[0].main}/></h4>
+			<p><FormattedMessage id={day[0].description}/></p>
 			<div className="small_card_detail">
 				<span>{day[0].temp.c}</span>
 			</div>

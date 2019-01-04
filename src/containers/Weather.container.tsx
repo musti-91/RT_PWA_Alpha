@@ -52,12 +52,7 @@ class WeatherContainer extends Component<IProps, IState> {
 	}
 
 	render() {
-		const {
-			navigator,
-			weatherDataAvailable,
-			weatherData,
-			weatherDay
-		} = this.state
+		const { navigator, weatherDataAvailable, weatherData } = this.state
 		return (
 			<Container className="weather-container">
 				{navigator && this.renderOfflineBadge('offline')}
