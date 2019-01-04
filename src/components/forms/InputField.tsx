@@ -1,14 +1,14 @@
-import React, { SFC } from 'react';
-import { FormProps } from 'semantic-ui-react';
+import React, { SFC } from 'react'
+import { FormProps } from 'semantic-ui-react'
 
-import DefaultButton from '../buttons/Button';
+import DefaultButton from '../buttons/Button'
 interface IForm extends FormProps {
-	onSubmit?: ( e: any ) => void;
-	onChange: ( e: object | any ) => void;
-	name?: string;
-	value?: string;
-	hasButton?: boolean;
-	buttonContent?: string | any;
+	onSubmit?: ( e: any ) => void
+	onChange: ( e: object | any ) => void
+	name?: string
+	value?: string
+	hasButton?: boolean
+	buttonContent?: string | any
 }
 
 const InputField: SFC<IForm> = ( { name, onSubmit, onChange, value, hasButton, buttonContent } ) => {
@@ -31,7 +31,7 @@ const InputField: SFC<IForm> = ( { name, onSubmit, onChange, value, hasButton, b
 				)}
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default InputField;
+export default InputField

@@ -1,16 +1,13 @@
-import React, { SFC, ReactNode } from 'react';
-import { Icon } from 'semantic-ui-react';
-
+import React, { SFC, ReactNode } from 'react'
+import { Icon } from 'semantic-ui-react'
+// import { css } from 'react-emotion'
 interface IProps {
-	title: string;
-	error?: string;
-	icon?: any;
-	children?: ReactNode;
+	title: string
+	error?: string
+	icon?: any
+	children?: ReactNode
 }
 
-const errorStyle = {
-	color: 'red;'
-};
 
 const Label: SFC<IProps> = ({ title, error, icon, children }) => {
 	if (error) {
@@ -19,8 +16,9 @@ const Label: SFC<IProps> = ({ title, error, icon, children }) => {
 				<span>{title}</span>
 				<span>{error}</span>
 				<span>{icon}</span>
+				{children}
 			</div>
-		);
+		)
 	}
 
 	return (
@@ -28,7 +26,9 @@ const Label: SFC<IProps> = ({ title, error, icon, children }) => {
 			<span>{title}</span>
 			<span>{icon && <Icon name={icon} />}</span>
 		</div>
-	);
-};
+	)
+}
 
-export default Label;
+const errorStyle = { color: 'red' }
+
+export default Label

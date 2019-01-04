@@ -1,5 +1,4 @@
-import React, { SFC, Children } from 'react';
-import MenuItem from './MenuItem';
+import React, { SFC } from 'react';
 
 
 interface IProps { }

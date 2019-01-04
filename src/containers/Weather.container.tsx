@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import { weatherApi, geolocationApi } from '../utils/weatherAPI';
-import { getWeatherOfToday, getWeekWeather } from '../utils/helper';
-import { Spring } from 'react-spring';
-import { Container, Label } from 'semantic-ui-react';
-import WeekCard from '../components/WeekCard';
-import DayCard from '../components/DayCard';
+import React, { Component } from 'react'
+import { Container, Label } from 'semantic-ui-react'
+import { Spring } from 'react-spring'
+
+import { weatherApi, geolocationApi } from '../utils/weatherAPI'
+import { getWeatherOfToday, getWeekWeather } from '../utils/helper'
+import WeekCard from '../components/WeekCard'
+import DayCard from '../components/DayCard'
 
 interface IProps {
-	style?: React.CSSProperties;
+	style?: React.CSSProperties
 }
 interface IState {
-	navigator: object | any;
-	location: string;
-	position: object | any;
-	wpId: any;
-	weatherDataAvailable: boolean;
-	weatherData: any;
-	weatherDay: object;
+	navigator: object | any
+	location: string
+	position: object | any
+	wpId: any
+	weatherDataAvailable: boolean
+	weatherData: any
+	weatherDay: object
 }
 
 class WeatherContainer extends Component<IProps, IState> {
@@ -31,23 +32,23 @@ class WeatherContainer extends Component<IProps, IState> {
 			lat: 1,
 			lng: 1
 		}
-	};
+	}
 
 	componentDidMount() {
-		window.addEventListener('online', this.onOfflineMode);
-		window.addEventListener('offline', this.onOfflineMode);
-		this.getPositionPermission();
-		this.watchPosition();
-		const { position } = this.state;
+		window.addEventListener('online', this.onOfflineMode)
+		window.addEventListener('offline', this.onOfflineMode)
+		this.getPositionPermission()
+		this.watchPosition()
+		const { position } = this.state
 		if (position) {
-			this.locatePosition(position);
+			this.locatePosition(position)
 		}
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('online', this.onOfflineMode);
-		window.removeEventListener('offline', this.onOfflineMode);
-		this.clearPosition();
+		window.removeEventListener('online', this.onOfflineMode)
+		window.removeEventListener('offline', this.onOfflineMode)
+		this.clearPosition()
 	}
 
 	render() {
@@ -56,7 +57,7 @@ class WeatherContainer extends Component<IProps, IState> {
 			weatherDataAvailable,
 			weatherData,
 			weatherDay
-		} = this.state;
+		} = this.state
 		return (
 			<Container className="weather-container">
 				{navigator && this.renderOfflineBadge('offline')}
@@ -65,7 +66,7 @@ class WeatherContainer extends Component<IProps, IState> {
 				{weatherDataAvailable && this.renderTodayWeather(weatherData)}
 				{weatherDataAvailable && this.renderWeekWeather(weatherData)}
 			</Container>
-		);
+		)
 	}
 
 	renderOfflineBadge = (status: string) => (
@@ -76,44 +77,44 @@ class WeatherContainer extends Component<IProps, IState> {
 				</span>
 			)}
 		</Spring>
-	);
+	)
 
 	renderTodayWeather(data: object) {
-		return <DayCard todayWeather={getWeatherOfToday(data)} />;
+		return <DayCard todayWeather={getWeatherOfToday(data)} />
 	}
 
 	renderWeekWeather(data: any) {
-		let weekList = getWeekWeather(data);
-		const keys = data && Object.keys(weekList);
-		let values: any = [];
+		let weekList = getWeekWeather(data)
+		const keys = data && Object.keys(weekList)
+		let values: any = []
 		for (let key in weekList) {
-			values.push(weekList[key]);
+			values.push(weekList[key])
 		}
-		return <WeekCard week={weekList} weekdays={keys} />;
+		return <WeekCard week={weekList} weekdays={keys} />
 	}
 
-	checkGeolocationInNavigator = () => 'geolocation' in navigator; // return true
+	checkGeolocationInNavigator = () => 'geolocation' in navigator // return true
 
 	getPositionPermission = () => {
 		if (!('geolocation' in navigator)) {
-			this.renderOfflineBadge('geolocation not found');
-			return;
+			this.renderOfflineBadge('geolocation not found')
+			return
 		}
 		navigator.geolocation.getCurrentPosition(
 			(position: object) => this.setPosition(position),
 			this.failedFetchLocation
-		);
-	};
+		)
+	}
 
 	watchPosition = () => {
 		let wpId = navigator.geolocation.watchPosition(newPostion =>
 			this.setPosition(newPostion)
-		);
-		this.setState({ wpId });
-	};
+		)
+		this.setState({ wpId })
+	}
 
 	clearPosition = () =>
-		this.state.wpId && navigator.geolocation.clearWatch(this.state.wpId);
+		this.state.wpId && navigator.geolocation.clearWatch(this.state.wpId)
 
 	locatePosition = (position: any) => {
 		geolocationApi
@@ -125,13 +126,13 @@ class WeatherContainer extends Component<IProps, IState> {
 					this.setState({
 						weatherDataAvailable: true,
 						weatherData: weatherInfo
-					});
+					})
 				}
 			})
-			.catch(error => console.log('[could not get weather info]: ', error));
-	};
+			.catch(error => console.log('[could not get weather info]: ', error))
+	}
 
-	onOfflineMode = () => this.setState(() => ({ navigator: !navigator.onLine }));
+	onOfflineMode = () => this.setState(() => ({ navigator: !navigator.onLine }))
 
 	setPosition = (position: object | any) => {
 		this.setState(() => ({
@@ -139,9 +140,9 @@ class WeatherContainer extends Component<IProps, IState> {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude
 			}
-		}));
-		this.locatePosition(this.state.position);
-	};
-	failedFetchLocation = (error: any) => console.log(error);
+		}))
+		this.locatePosition(this.state.position)
+	}
+	failedFetchLocation = (error: any) => console.log(error)
 }
-export default WeatherContainer;
+export default WeatherContainer

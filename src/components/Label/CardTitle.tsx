@@ -1,9 +1,9 @@
-import React, { SFC } from 'react';
+import React, { SFC } from 'react'
 import { Icon } from "semantic-ui-react"
 
 interface IProps {
-  title?: string;
-  body?: string;
+  title?: string
+  body?: string
   icon?: string
   data?: any
 }

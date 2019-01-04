@@ -1,11 +1,11 @@
-import React, { SFC } from 'react';
+import React, { SFC } from 'react'
 
-import { Checkbox as CheckboxUI } from 'semantic-ui-react';
+import { Checkbox as CheckboxUI } from 'semantic-ui-react'
 interface IProps {
-	checked: boolean;
-	onChange?: (id?: number | any) => void;
-	disabled?: boolean;
-	label?: string;
+	checked: boolean
+	onChange?: (id?: number | any) => void
+	disabled?: boolean
+	label?: string
 }
 
 const Checkbox: SFC<IProps> = ({ disabled, checked, onChange, label }) => {
@@ -16,6 +16,6 @@ const Checkbox: SFC<IProps> = ({ disabled, checked, onChange, label }) => {
 			checked={checked}
 			disabled={disabled}
 		/>
-	);
-};
-export default Checkbox;
+	)
+}
+export default Checkbox

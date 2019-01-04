@@ -1,9 +1,14 @@
 export let api = {
-	get: () =>
+	getAll: () =>
 		fetch('https://jsonplaceholder.typicode.com/posts/')
 			.then(res => res.json())
 			.then(res => res)
 			.catch(error => console.log(error)),
+	get: (id: number | string)=>
+		fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+			.then(res => res.json())
+			.then(res => res)
+			.catch(err => console.log(err)),
 	post: (post: object) =>
 		fetch('https://jsonplaceholder.typicode.com/posts/', {
 			method: 'POST',
@@ -33,4 +38,4 @@ export let api = {
 			.then(res => res.json())
 			.then(post => post)
 			.catch(error => console.log(error))
-};
+}

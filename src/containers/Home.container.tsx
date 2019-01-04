@@ -1,11 +1,11 @@
-import React, { SFC } from 'react';
-import { Spring } from 'react-spring';
+import React, { SFC } from 'react'
+import { Spring } from 'react-spring'
 
-import LoaderHoc, { InjectedProps } from '../components/LoaderHoc'
+import LoaderHoc, { InjectedProps } from '../components/hoc/LoaderHoc'
 
-import { Container, Checkbox, Segment } from 'semantic-ui-react';
-import WeatherContainer from './WeatherContainer';
-import PostsContainer from './PostsContainer';
+import { Container, Checkbox, Segment } from 'semantic-ui-react'
+import WeatherContainer from './Weather.container'
+import PostsContainer from './Posts.container'
 
 interface IProps extends InjectedProps { }
 
@@ -28,10 +28,10 @@ const Home: SFC<IProps> = ( { darkTheme, onClick } ) => {
 			</Spring>
 			<PostsContainer />
 		</Container>
-	);
-};
+	)
+}
 
 const theme = {
 
 }
-export default LoaderHoc( Home );
+export default LoaderHoc( Home )

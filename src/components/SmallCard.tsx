@@ -1,10 +1,10 @@
-import React, { SFC } from 'react';
-import { Image } from 'semantic-ui-react';
+import React, { SFC } from 'react'
+import { Image } from 'semantic-ui-react'
 
 interface IProps {
-	day: object | any;
-	weekday: string;
-	style?: any;
+	day: object | any
+	weekday: string
+	style?: any
 }
 
 const SmallCard: SFC<IProps> = ({ day, weekday }) => {
@@ -20,7 +20,7 @@ const SmallCard: SFC<IProps> = ({ day, weekday }) => {
 				<span>{day[0].temp.c}</span>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default SmallCard;
+export default SmallCard

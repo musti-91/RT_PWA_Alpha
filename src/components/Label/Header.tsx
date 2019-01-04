@@ -1,10 +1,10 @@
-import React, { SFC } from 'react';
-import { Container, Icon } from 'semantic-ui-react';
+import React, { SFC } from 'react'
+import { Container, Icon } from 'semantic-ui-react'
 
 interface IProps {
-	title?: string;
-	icon?: any;
-	onClick?: (e: any) => void;
+	title?: string
+	icon?: any
+	onClick?: (e: any) => void
 }
 
 const Header: SFC<IProps> = ({ title, onClick, icon }) => {
@@ -15,6 +15,6 @@ const Header: SFC<IProps> = ({ title, onClick, icon }) => {
 				{title}
 			</h2>
 		</Container>
-	);
-};
-export default Header;
+	)
+}
+export default Header

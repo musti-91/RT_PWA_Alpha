@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import { Container, Image } from 'semantic-ui-react';
-import { Spring } from 'react-spring';
-import SmallCard from './SmallCard';
+import React, { Component } from 'react'
+import { Container } from 'semantic-ui-react'
+import { Spring } from 'react-spring'
+import SmallCard from './SmallCard'
 
 interface IProps {
-	week: any;
-	weekdays: string[];
+	week: any
+	weekdays: string[]
 }
 
 class WeekCard extends Component<IProps> {
 	render() {
-		const { week } = this.props;
-		let weekday = this.renderDays(week);
+		const { week } = this.props
+		let weekday = this.renderDays(week)
 		return (
 			<Container>
 				<div className="week-card">{week && weekday}</div>
 			</Container>
-		);
+		)
 	}
 
 	renderDays = (week: any) => {
-		let element: any = '';
+		let element: any = ''
 		if (week) {
 			element = Object.keys(week).map((key: any) => {
 				return (
@@ -31,10 +31,10 @@ class WeekCard extends Component<IProps> {
 							)}
 						</Spring>
 					)
-				);
-			});
+				)
+			})
 		}
-		return element;
-	};
+		return element
+	}
 }
-export default WeekCard;
+export default WeekCard

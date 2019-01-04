@@ -1,26 +1,24 @@
-import React, { Component } from 'react';
-import { Icon } from 'semantic-ui-react';
+import React, { Component } from 'react'
+import { Icon } from 'semantic-ui-react'
 import moment from 'moment'
 export interface InjectedProps {
-	loading?: boolean;
-	darkTheme?: string;
+	loading?: boolean
+	darkTheme?: string
 	onClick?: () => void
 }
 
 interface InjectedState {
-	loading: boolean;
-	darkTheme?: boolean;
+	loading: boolean
+	darkTheme?: boolean
 }
 
 //TODO: change color of icon every loading
-const LoaderHoc = <P extends InjectedProps>(
-	WrappedComponent: React.ComponentType<P>
-) => {
+const LoaderHoc = <P extends InjectedProps>( WrappedComponent: React.ComponentType<P> ) => {
 	return class LoaderHoc extends Component<P & InjectedProps, InjectedState> {
 		state: InjectedState = {
 			loading: true,
 			darkTheme: false
-		};
+		}
 
 		componentDidMount() {
 			let getTimeOfNow = moment().format( 'LT' ) // 2.30 PM
@@ -29,8 +27,8 @@ const LoaderHoc = <P extends InjectedProps>(
 			}
 
 			setTimeout( () => {
-				this.setState( { loading: false } );
-			}, 1000 );
+				this.setState( { loading: false } )
+			}, 1000 )
 
 		}
 
@@ -39,16 +37,16 @@ const LoaderHoc = <P extends InjectedProps>(
 		}
 
 		render() {
-			const { loading, darkTheme } = this.state;
+			const { loading, darkTheme } = this.state
 			return loading ? (
 				<div className="loader">
 					<Icon name="spinner" loading className="loader-icon" />
 				</div>
 			) : (
 					<WrappedComponent {...this.props} darkTheme={darkTheme} onClick={this.ToggleTheme} />
-				);
+				)
 		}
-	};
-};
+	}
+}
 
-export default LoaderHoc;
+export default LoaderHoc

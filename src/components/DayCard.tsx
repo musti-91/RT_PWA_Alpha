@@ -1,9 +1,9 @@
-import React, { SFC } from 'react';
-import { Container, Image } from 'semantic-ui-react';
+import React, { SFC } from 'react'
+import { Container, Image } from 'semantic-ui-react'
 
 interface IProps {
-	todayWeather: object | any;
-	style?:any;
+	todayWeather: object | any
+	style?:any
 }
 
 const DayCard: SFC<IProps> = ({ todayWeather, style }) => {
@@ -31,7 +31,7 @@ const DayCard: SFC<IProps> = ({ todayWeather, style }) => {
 				</div>
 			</div>
 		</Container>
-	);
-};
+	)
+}
 
-export default DayCard;
+export default DayCard
