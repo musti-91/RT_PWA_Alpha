@@ -1,6 +1,6 @@
 {
-  "short_name": "React with typescript",
-  "name": "react typescript sample",
+  "short_name": "Weather&Posts",
+  "name": "Weather&Posts",
   "icons": [
     {
       "src": "favicon.ico",
