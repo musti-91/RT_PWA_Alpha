@@ -1,22 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'connected-react-router'
 
 import 'semantic-ui-css/semantic.min.css'
 import './assets/index.scss'
 
+import * as serviceWorker from './serviceworker/serviceWorker'
+
 import  history from  './utils/history'
 import Routing from './routes/Routing'
 
-import * as serviceWorker from './serviceworker/serviceWorker'
-import { configureStore } from './store';
-
-
-const store= configureStore(history)
+import store  from './loader'
 
 ReactDOM.render(
   <Provider store={store}>
-    <Routing />
+    <ConnectedRouter history={history}>
+      <Routing />
+    </ConnectedRouter>,
   </Provider>,
   document.getElementById( 'root' ) )
 

@@ -1,28 +1,26 @@
-import { History } from 'history';
-import { routerMiddleware } from "react-router-redux"
-import { applyMiddleware, Store, createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import createSagaMiddleware from 'redux-saga'
+import { UserState } from './../redux/User/types';
+import { History } from 'history'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, applyMiddleware, Store } from 'redux'
+import createSagaMiddlaware from 'redux-saga'
+import thunk from 'redux-thunk'
+import {createLogger} from 'redux-logger'
+
+import { IAppState, rootReducer, rootSaga} from '../redux'
 
 
-import { RootStateType } from '../types'
-import rootSaga from '../saga'
-import { createReducer, initial_state } from "../redux"
 
-import root from '../saga/index'
-const sagaMiddleware = createSagaMiddleware()
+export default function configureStore(history: History, initialState: IAppState ): Store<IAppState> {
 
-export function configureStore(history: History): Store<RootStateType>{
+  const composeEnhancers = composeWithDevTools({})
+  const sagaMiddlaware = createSagaMiddlaware()
 
-  const middlawares = [ sagaMiddleware, routerMiddleware(history) ]
+  const store = createStore(
+              connectRouter(history)(rootReducer),
+              initialState,
+              composeEnhancers(applyMiddleware(routerMiddleware(history), sagaMiddlaware), thunk, createLogger()))
 
-  const store = createStore<RootStateType, {type:any}, {}, {}>(
-                        createReducer(),
-                        initial_state,
-                        composeWithDevTools(applyMiddleware(...middlawares))
-                        )
-
-
-  sagaMiddleware.run(root)
-  return store
+    sagaMiddlaware.run(rootSaga)
+    return store
 }

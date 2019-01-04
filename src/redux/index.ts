@@ -1,21 +1,21 @@
-import { combineReducers, Reducer, AnyAction } from 'redux'
+import { combineReducers, AnyAction, Action, Dispatch } from "redux"
+import { fork, all } from 'redux-saga/effects'
 
-import { RootStateType } from '../types'
+import { UserReducer } from "./User/reducer"
+import { UserState } from "./User/types"
+import userSaga from "./User/saga"
 
-import { INITIAL_STATE , homeReducer } from './home'
-
-export const initial_state: RootStateType = {
-  home: INITIAL_STATE
+export interface IAppState {
+  user: UserState
 }
 
-export function createReducer(): Reducer<RootStateType>{
-  const reducer = combineReducers<RootStateType>({
-    home: homeReducer
-  })
+export interface ConnectedReduxProps<A extends Action = AnyAction> {
+  dispatch: Dispatch<A>
+}
+export const rootReducer = combineReducers<IAppState>({
+  user: UserReducer
+})
 
-  const rootReducer = (state: RootStateType | undefined , action: AnyAction): RootStateType => {
-    return reducer(state, action)
-  }
-
-  return rootReducer
+export function* rootSaga(){
+  yield all([fork(userSaga)]) // other saga will be here exported
 }

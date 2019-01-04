@@ -1,16 +1,13 @@
 
-import React, { SFC, useEffect } from 'react';
+import React, { SFC } from 'react';
 import { Spring } from 'react-spring';
 
 import LoaderHoc from '../components/hoc/LoaderHoc'
-import { connect } from 'react-redux'
 import { Container, Checkbox, Segment } from 'semantic-ui-react';
 
-import  { push } from 'react-router-redux'
 
 import PostsContainer from './PostsContainer';
 import WeatherContainer from './WeatherContainer';
-import { RootStateType } from '../types';
 
 interface IProps {
 	darkTheme: boolean;
