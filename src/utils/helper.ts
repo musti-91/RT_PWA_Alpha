@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export const f2c = (temp: number) => {
-	return (((temp - 32) * (5 / 9)) / 9).toFixed(0);
+	return ((((temp - 32) * (5 / 9)) / 9) / 2).toFixed(0)
 };
 
 const icons: any = {

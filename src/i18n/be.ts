@@ -12,5 +12,7 @@ export default {
   "Tue":"Din",
   "Wed":"Won",
   "Thu":"Don",
-  "Fri":"Vri"
+  "Fri":"Vri",
+  "few clouds": "weinig wolken",
+  "Clouds": "Wolken"
 }
